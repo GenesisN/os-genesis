@@ -6,9 +6,9 @@
 #include <dirent.h>
 #include <sys/stat.h>
 
-/**
-  Builtin commands function declarations:
- */
+
+// Builtin commands function declarations:
+
 int wish_cd(char **args);
 int wish_help();
 int wish_exit(char **args);
@@ -24,6 +24,7 @@ int (builtin_func[]) (char *) = {
   &wish_help,
   &wish_exit
 };
+
 int wish_num_builtins() {
   return sizeof(builtin_str) / sizeof(char *);
 }
@@ -43,7 +44,7 @@ char *wish_read_line(void)
 char **wish_split_line(char *line)
 {
   int bufsize = LSH_TOK_BUFSIZE, position = 0;
-  char *tokens = malloc(bufsize * sizeof(char));
+  char **tokens = malloc(bufsize * sizeof(char));
   char *token;
 
   if (!tokens) {
@@ -77,13 +78,18 @@ int wish_help()
     printf("*****\n");
     printf("Wish is working \n");
     printf("This version of Wish is a very simplified one and can only do a few stuff. Below are all available commands on it\n");
-    printf("\t-cd\n \t-ls\n  \t-help\n \t-exit\n\n");
+    printf("\t-cd\n \t-help\n \t-exit\n\n");
     printf("If you are not used to running these commands, type the one you need with arguments if any, and hit enter.\n\n");
     printf("Use the man command for information on other programs.\n");
     printf("*****\n\n");
     return 1;
 }
 
+int wish_exit(char **args)
+{
+    exit(0);
+    return 0;
+}
  
 int wish_cd(char **args)
 {
@@ -164,5 +170,5 @@ void wish_loop(void)
 int main(int argc, char **argv)
 {
     wish_loop();
-	return 0;
+    return 0;
 }
