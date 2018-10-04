@@ -19,7 +19,7 @@ char *builtin_str[] = {
   "exit"
 };
 
-int (builtin_func[]) (char *) = {
+int (*builtin_func[]) (char **) = {
   &wish_cd,
   &wish_help,
   &wish_exit
