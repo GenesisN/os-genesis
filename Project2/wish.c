@@ -125,6 +125,38 @@ int wish_launch(char **args)
       wpid = waitpid(pid, &status, WUNTRACED);
     } while (!WIFEXITED(status) && !WIFSIGNALED(status));
   }
+  	char *path1 = concat("/usr/bin/",arg[0]);
+	char *path2 = concat("/bin/",arg[0]);
+	int flag = 0;
+	int count = 0;
+	if(access(path1,X_OK)==0){
+		flag = 1;
+	}
+	if(access(path2,X_OK)==0){
+		flag = 2;
+	}
+	//Put arguments in array for execv
+	if(count>1){
+		for(int i=1;i<count;i++){
+			array[i] = arg[i];
+		}
+	}
+
+	if (pid==0){
+		if (flag == 1){
+			array[0] = path1;
+			execv(path1, array);
+		}
+		else if(flag == 2){
+			array[0] = path2;
+			execv(path2, array);
+		}
+					
+		printf("%s\n", "Problem!");
+		}
+	else{
+		wait(NULL);
+	}
 
   return 1;
 }
