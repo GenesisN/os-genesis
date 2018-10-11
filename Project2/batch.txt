@@ -1,4 +1,4 @@
 ls
-cd
-mkdir
+cd ./folder1
+mkdir folder2
 help
